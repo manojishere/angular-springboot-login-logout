@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    networks:
+      -  lift_net    
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: lift@lift.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+      
+  db:
+    container_name: postgresql_db_container
+    image: postgres
+    volumes:
+      - postgres-lift-data:/var/lib/postgresql/data
+    networks:
+      -  lift_net 
+    restart: always
+    environment:
+      POSTGRES_USER: liftuser
+      POSTGRES_PASSWORD: liftpwd
+      POSTGRES_DB: lift_db
+    ports:
+      - "5432:5432"      
+  lb:
+    image : manojishere/nginx:lb
+    networks:
+      -  lift_net 
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - service1
+      
+  service1:
+    image : manojishere/liftapi:dev
+    networks:
+      -  lift_net 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+networks:
+    lift_net:
+        driver: bridge
+volumes:
+    postgres-lift-data:

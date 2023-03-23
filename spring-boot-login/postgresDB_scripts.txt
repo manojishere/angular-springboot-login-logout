@@ -1,0 +1,6 @@
+INSERT INTO public.users(
+	id, active, first_name, last_name, password, user_id)
+	VALUES (1, 1, 'Manoj', 'Singh', 'msingh1', 'msingh');
+INSERT INTO public.users(
+	id, active, first_name, last_name, password, user_id)
+	VALUES (2, 1, 'Kartikey', 'Sharma', 'ksharma1', 'ksharma');

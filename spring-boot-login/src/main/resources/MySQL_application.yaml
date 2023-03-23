@@ -1,0 +1,26 @@
+server:
+  port : 8080
+spring:
+  message: DEFAULT application properties
+  application:
+    name: OpencardEntryService
+  datasource:
+    url: jdbc:sqlserver://SDAFSSQL02V:1433;databaseName=SwipeReload;
+    #url: jdbc:sqlserver://10.42.16.121:1433;databaseName=SwipeReload;
+    username: APP_CORE_TPS_DFS02
+    password: xaBrawracKgSo6reRu3r
+    #password: ENC(ldy3hc6CPh0GET80a9RyIFpjX54BLUzlUplqv0n9bi+A/FbiLGLejw==)
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  mvc:
+    view:
+      prefix: /WEB-INF
+      suffix: .jsp
+    static-path-pattern: /resources/** 
