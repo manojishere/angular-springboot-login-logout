@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lift.config.vo.User;
+import com.lift.util.Utility;
 
 @RestController
 @RequestMapping("/login")
@@ -21,8 +22,8 @@ public class LoginController {
 	@PostMapping
 	public ResponseEntity<User> login( @RequestBody User param_user ){
 		
-		System.out.println("userName: password :: " + param_user.getUserName() + ": " + param_user.getPassword());;
-		
+		System.out.println("login userName: password :: " + param_user.getUserName() + ": " + param_user.getPassword());;
+		/*
 		User user = new User();
 		user.setUserName("msingh");
 		user.setFirstName("Manoj");
@@ -30,13 +31,23 @@ public class LoginController {
 		user.setActive( true );
 		user.setAge( 42) ;
 		user.setEmail("msingh@gmail.com");
+		*/
 		
-		if( (param_user.getUserName() != null && param_user.getUserName().equals( "manojishere" ) ) 
-				&& ( param_user.getPassword() != null && param_user.getPassword().equals( "msingh1" )) ) {
-			return ResponseEntity.ok( user );
-		}else {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		User user = Utility.getUser( param_user.getUserName() );
+		logger.trace( "login user : " + user );
+		try {
+			if( user != null && 
+					(param_user.getUserName() != null && param_user.getUserName().equals( user.getUserName() ) ) 
+					&& ( param_user.getPassword() != null && param_user.getPassword().equals( user.getPassword() )) ) {
+				return ResponseEntity.ok( user );
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}catch( Exception e ) {
+			logger.error("login Exception : ");
+			return ResponseEntity.status( HttpStatus.NOT_ACCEPTABLE ).build();
 		}
+
 		
 		
 	}

@@ -1,6 +1,8 @@
 package com.lift.config.vo;
 
 public class User {
+	
+	private Integer id;
 	private String userName;
 	private String firstName;
 	private String lastName;
@@ -8,6 +10,13 @@ public class User {
 	private String email;
 	private int age;
 	private boolean active;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	public String getUserName() {
 		return userName;
@@ -54,5 +63,11 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", password=" + password + ", email=" + email + ", age=" + age + ", active=" + active + "]";
+	}	
 
 }

@@ -4,9 +4,10 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarRef, MatSnackBarVerticalPosition, SimpleSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user';
-import { AuthService } from 'src/app/services/auth.service';
 import { MustMatch } from 'src/app/shared/validators/custom-validators';
 import { DateValidator } from 'src/app/shared/validators/date-validator';
+import { AuthService } from 'src/app/services/auth.service';
+import { RegisterService } from 'src/app/services/register.service';
 
 function passwordMatcher( c: AbstractControl ) : { [ key : string ] : boolean } | null {
   const password = c.get( 'password' );
@@ -44,7 +45,8 @@ export class RegisterComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor( private authService: AuthService, 
+  constructor(private authService: AuthService,
+    private registrationService: RegisterService,
     private formBuilder: FormBuilder, 
     private _snackBar: MatSnackBar,
     private router : Router,
@@ -86,23 +88,24 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  onSubmit(){
-    console.log('RegisterComponent onSubmit :' + this.form.value)
-    this.userCreated = Object.assign( this.userCreated, this.form.value);
+  onSubmit() {
+    console.log('RegisterComponent onSubmit22 :' + this.form.value)
+    this.userCreated = Object.assign(this.userCreated, this.form.value);
     this.clearAllData();
-    console.log('userCreated : ' + this.userCreated.email);
-    localStorage.setItem('user', JSON.stringify( this.userCreated ) ); 
-    this.authService.add( this.userCreated );
-    this.authService.userList.subscribe( (data : User[] ) =>{
-      console.log('inside register total users : ' + data.length );
-      this.openSnackBar( "Registration Successful", "Login" );
-      /*
-      this.openSnackBar( "Registration Successful", "Login" ).onAction().subscribe( () =>{
-        this.router.navigate(['/login']);
-      });
-      */
-      //this.router.navigateByUrl('/login');
+    console.log('userCreated testing : ' + this.userCreated.email);
+    this.registrationService.registerUser(this.userCreated).subscribe({
+      next: (data: User) => { console.log('RegisterComponent Sucessful') },
+      error: (err) => { console.log(JSON.stringify('RegisterComponent error : ' + err)) }
+    })
+
+    
+    this.openSnackBar("Registration Successful", "Login").onAction().subscribe(() => {
+      this.router.navigate(['/login']);
     });
+
+    this.router.navigateByUrl('/login');
+    
+
   }
 
   openSnackBar(message: string, action: string)  : MatSnackBarRef<SimpleSnackBar>{

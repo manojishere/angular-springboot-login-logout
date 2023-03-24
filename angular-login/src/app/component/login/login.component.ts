@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
       error: (err) => console.log('error during logging : ' + err)
     })
 
-    this.authService.isLogginSubject.subscribe({
+    this.authService.isLoggedIn().subscribe({
       next: (status: number) => {
         console.log('user status : ' + JSON.stringify(status));
         if (status == 1) {
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
           console.log('login success');
           this.toastrService.success("Login Success", "Have Fun", { progressBar: true, closeButton: true });
           this.router.navigate(['\dashboard']);
-        } else {
+        } else if (status == 2) {
           console.log('login failed');
           this.loginInvalid = true;
           this.message = "Login failed";
