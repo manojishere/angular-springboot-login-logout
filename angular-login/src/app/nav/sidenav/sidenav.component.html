@@ -1,9 +1,11 @@
 <mat-sidenav-container class="app-sidenav-container" autosize>
-    <mat-sidenav *ngIf="loggedInUser$ | async" #sidenav class="app-sidenav mat-elevation-z10 circular-edge" 
+    <mat-sidenav *ngIf="isUserLoggedIn" #sidenav class="app-sidenav mat-elevation-z10 circular-edge" 
         [opened]='!isSmallScreen'
         [mode]="isSmallScreen? 'over' : 'side' ">
         <mat-toolbar color="primary">
-            <span>Menu Items</span>
+          <span>
+            Menu Items
+          </span>
         </mat-toolbar>
 
           <button mat-button class="menu-button" [routerLink]="['/home']">

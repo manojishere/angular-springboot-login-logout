@@ -33,9 +33,8 @@ export class SidenavComponent implements OnInit {
         this.isSmallScreen = state.matches;
       })
 
-    this.loggedInUser$ = this.authService.user;
+    // this.loggedInUser$ = this.authService.user;
 
-     /*
      this.authService.user.subscribe(( x: User)=>{
         console.log('Side nav component  user email : ' + x.email);
         console.log('Side nav component isUserLoggedIn : ' + this.isUserLoggedIn);
@@ -45,7 +44,6 @@ export class SidenavComponent implements OnInit {
           this.isUserLoggedIn = false;
         }
       })
-      */
 
   }
 
