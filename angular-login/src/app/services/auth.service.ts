@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  BehaviorSubject, Observable, throwError } from 'rxjs';
+import {  BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import {  map, tap, catchError, retry } from 'rxjs/operators';
 import { User } from '../model/user';
 
@@ -26,6 +26,7 @@ export class AuthService {
   }
   
   private _loggedInUser : BehaviorSubject<User>;
+  // private _loggedInUser: Observable<User> | undefined;
   private _listOfUsers = new BehaviorSubject< User[]>([]);
   private users : User[] = [];
 
@@ -43,6 +44,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { 
     this._loggedInUser = new BehaviorSubject<User> ( new User() );
+    // this._loggedInUser = new Observable<User> ( );
   }
 
   get user() : Observable<User>{
@@ -111,7 +113,7 @@ export class AuthService {
     })
   }
 
-  login(userName: string, password: string) {
+  login(userName: string, password: string) : Observable<User>{
 
     console.log('AuthService login total users : ' + this.users.length);
     const user = { "userName": userName, "password": password };
@@ -139,40 +141,6 @@ export class AuthService {
         return throwError('Something bad happened; please try again later.');
       })
     )
-  }
-
-  /*
-  login( userName:string, password:string ){
-    console.log('AuthService login total users : ' + this.users.length );
-    this.users.forEach( (x:User)=> {
-      if( x.userName === userName && x.password === password){
-        this._loggedInUser.next( x );
-      }
-    })
-  }
-  */
-
-  /*
-  get user( userName:string, password:string) : Observable<User>{
-    console.log( ' getUser() : ' + this.users.length );
-    this.users.find( x=> {
-      if(x.userName === userName && x.password === password){
-        this._loggedInUser = x;
-      }
-    });
-
-    )
-  }
-  */
-
-  getUsers() : Observable<User[]> {
-    return this.http.get< User[]>( this.userURL )
-    .pipe(
-      map ( (data:User[])=> this.users=data ) ,
-      retry(3),
-      catchError( this.errorHandler )
-      
-    );
   }
 
 

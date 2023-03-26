@@ -1,5 +1,5 @@
 <mat-sidenav-container class="app-sidenav-container" autosize>
-    <mat-sidenav *ngIf="isUserLoggedIn" #sidenav class="app-sidenav mat-elevation-z10 circular-edge" 
+    <mat-sidenav *ngIf="loggedInUser$ | async" #sidenav class="app-sidenav mat-elevation-z10 circular-edge" 
         [opened]='!isSmallScreen'
         [mode]="isSmallScreen? 'over' : 'side' ">
         <mat-toolbar color="primary">
