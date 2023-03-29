@@ -8,11 +8,11 @@
         <mat-card-header>
             <!--<mat-icon mat-card-avatar svgIcon="{{user.avatar}}"></mat-icon> -->
             <mat-card-title>{{ user.userName }}</mat-card-title>
-            <mat-card-subtitle>Birthday {{ user.dateOfBirth | date:'d LLLL'}}</mat-card-subtitle>
+            <mat-card-subtitle>Profile Update {{ user.dateOfBirth | date:'d LLLL'}}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
             <mat-tab-group>
-                <mat-tab label="Bio">
+                <mat-tab label="Contact Info">
                     <p>
                         {{user.email}}
                     </p>                    

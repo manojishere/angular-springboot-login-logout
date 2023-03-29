@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,7 +24,8 @@ export class SidenavComponent implements OnInit {
   loggedInUser$: Observable<User> | undefined;
 
   constructor( private breakpointObserver: BreakpointObserver,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router  ) { }
 
   ngOnInit(): void {
     this.breakpointObserver
@@ -32,6 +34,13 @@ export class SidenavComponent implements OnInit {
       .subscribe( (state: BreakpointState) => {
         this.isSmallScreen = state.matches;
       })
+
+    this.router.events.subscribe(() => {
+      if (this.isSmallScreen) {
+        this.sidenav.close();
+      }
+    })
+
 
     // this.loggedInUser$ = this.authService.user;
 
