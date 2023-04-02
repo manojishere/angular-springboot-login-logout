@@ -8,6 +8,7 @@ import { MustMatch } from 'src/app/shared/validators/custom-validators';
 import { DateValidator } from 'src/app/shared/validators/date-validator';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterService } from 'src/app/services/register.service';
+import { NONE_TYPE } from '@angular/compiler';
 
 function passwordMatcher( c: AbstractControl ) : { [ key : string ] : boolean } | null {
   const password = c.get( 'password' );
@@ -40,6 +41,9 @@ export class RegisterComponent implements OnInit {
   userCreated: User = new User();
   minDate: Date;
   maxDate: Date;
+  displayEmail: boolean = true;
+  displayPhone: boolean = false;
+  
   //@ViewChild('secondDialog') secondDialog: TemplateRef<any> | any;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -76,15 +80,57 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      userName : [null,[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      firstName : [null,[Validators.required]],
-      lastName : [null, [Validators.required]],
-      dateOfBirth : [null,[DateValidator.required]],
-      password : [null, [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+      userName: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
+      dateOfBirth: [null, [DateValidator.required]],
+      notification: 'email',
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: [''],
+      password: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
       confirmPassword: [null, Validators.required],
-      email : [null, [Validators.required, Validators.email]],
-      role : [null, [Validators.required]]
-    }, { validator: MustMatch("password", "confirmPassword") } )
+      role: [null, [Validators.required]]
+    }, { validator: MustMatch("password", "confirmPassword") })
+
+    this.form.get('notification')?.valueChanges.subscribe({
+      next: value => {
+        this.setContactPreferenceNotification(value);
+        }
+    });
+
+    
+  }
+
+  setContactPreferenceNotification( value: string) {
+    console.log('setContactPreferenceNotification : ' + value);
+    const phoneNumberControl = this.form.get('phoneNumber');
+    const emailControl = this.form.get('email');
+    if (value == 'phone') {
+      this.displayPhone = true;
+      this.displayEmail = false;
+
+      phoneNumberControl?.setValidators([Validators.required, Validators.pattern("^[0-9]*$"),
+        Validators.minLength(10), Validators.maxLength(10)])
+      emailControl?.clearValidators();
+
+    } else if (value == 'email') {
+      this.displayEmail = true;
+      this.displayPhone = false;
+
+      emailControl?.setValidators([Validators.required, Validators.email]);
+      phoneNumberControl?.clearValidators();
+
+
+    } else if (value == 'both') {
+      this.displayEmail = true;
+      this.displayPhone = true;
+
+      phoneNumberControl?.setValidators([Validators.required, Validators.pattern("^[0-9]*$"),
+        Validators.minLength(10), Validators.maxLength(10)]);
+      emailControl?.setValidators([Validators.required, Validators.email]);
+    }
+    phoneNumberControl?.updateValueAndValidity();
+    emailControl?.updateValueAndValidity();
   }
 
 

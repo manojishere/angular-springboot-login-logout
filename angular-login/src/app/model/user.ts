@@ -4,7 +4,8 @@ export class User {
     password: string ="";
     firstName: string ="";
     lastName: string ="";
-    dateOfBirth: Date | any ;
+    dateOfBirth: Date | any;
+    phoneNumber: number | any;
     email:string="";
     role:string="";
     token: string ="";    

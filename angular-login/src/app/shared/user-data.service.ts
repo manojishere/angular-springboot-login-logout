@@ -19,6 +19,7 @@ export class UserDataService  implements InMemoryDbService{
               lastName: 'Singh',
               token: '',
               email: 'manojishere@gmail.com',
+              phoneNumber: 1111111111,
               role: 'Admin'
             },
             {
@@ -30,6 +31,7 @@ export class UserDataService  implements InMemoryDbService{
               lastName: 'Singh',
               token: '',
               email: 'tellneetu@gmail.com',
+              phoneNumber: 2222222222,
               role: 'Admin'
             },
             {
@@ -41,6 +43,7 @@ export class UserDataService  implements InMemoryDbService{
               lastName: 'Singh',
               token: '',
               email: 'tellsanskriti@gmail.com',
+              phoneNumber: 3333333333,
               role: 'Admin'
             }                            
       ]

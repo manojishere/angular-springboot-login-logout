@@ -8,6 +8,8 @@ public class User {
 	private String lastName;
 	private String password;
 	private String email;
+	private int phoneNumber;
+
 	private int age;
 	private boolean active;
 	
@@ -49,7 +51,14 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}	
+	}
+	
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 	
 	public int getAge() {
 		return age;
@@ -67,7 +76,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", password=" + password + ", email=" + email + ", age=" + age + ", active=" + active + "]";
+				+ ", password=" + password + ", email=" + email + ", phoneNumber= + " + phoneNumber + ", age=" + age + ", active=" + active + "]";
 	}	
 
 }

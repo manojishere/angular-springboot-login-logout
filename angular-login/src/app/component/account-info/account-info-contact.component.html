@@ -1,0 +1,20 @@
+
+<mat-card class="box">
+  <form [formGroup]="accountInfoContactForm" (ngSubmit)="onSubmit()">
+    <mat-card-content>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="User Name" formControlName="userName" #userNameInput />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="emailAddress">
+        <mat-error *ngIf="accountInfoContactForm?.get('emailAddress')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="accountInfoContactForm?.get('emailAddress')?.hasError('email')">Please enter a valid email address</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+
+    <button mat-stroked-button color="primary" [disabled]="!accountInfoContactForm.valid">Update Contact Info</button>
+  </form>
+</mat-card>

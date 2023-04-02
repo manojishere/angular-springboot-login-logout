@@ -22,6 +22,7 @@ export class AuthService {
     lastName: 'Singh',
     token: '',
     email: '',
+    phoneNumber: 1111111111,
     role: 'Admin'
   }
   
