@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/model/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../../../model/user';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-account-info-contact',
-  templateUrl: './account-info-contact.component.html',
-  styleUrls: ['./account-info-contact.component.scss']
+  selector: 'app-user-address',
+  templateUrl: './user-address.component.html',
+  styleUrls: ['./user-address.component.scss']
 })
-export class AccountInfoContactComponent implements OnInit {
+export class UserAddressComponent implements OnInit {
   accountInfoContactForm: FormGroup = new FormGroup({});
   user: User | undefined;
   hasUnitNumber: boolean = false;
@@ -75,12 +75,6 @@ export class AccountInfoContactComponent implements OnInit {
     { name: "Wyoming", abbreviation: "WY" }
   ];
 
-  emailValidationMessages: string = "";
-  private emailValidationMessagesMap : { [key: string]: string } = {
-    required: 'Email address is mandatory',
-    email: 'Please enter a proper email address'
-  };
-
   address1ValidationMessages: string = "";
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
@@ -100,26 +94,19 @@ export class AccountInfoContactComponent implements OnInit {
     })
 
     this.accountInfoContactForm = this.formBuilder.group({
-      userName: { value: this.user?.userName, disabled:true },
-      emailAddress: [this.user?.email, [Validators.required, Validators.email]],
       address1: [this.user?.address?.address1, [Validators.required, Validators.minLength(15)]],
       address2: [this.user?.address?.address2],
       state: [this.user?.address?.state, [Validators.required]],
       city: [this.user?.address?.city, [Validators.required]],
-      postalCode: [this.user?.address?.postalCode, [Validators.required]]
+      postalCode: [this.user?.address?.postalCode, [Validators.required, Validators.minLength(5)]]
 
     });
-
-    const emailAddressControl = this.accountInfoContactForm.get('emailAddress')
-    emailAddressControl?.valueChanges.subscribe(
-      value => this.setEmailValidationMessages(emailAddressControl as FormControl )
-    )
 
     const address1Control = this.accountInfoContactForm.get('address1')
     address1Control?.valueChanges.subscribe(
       value => this.setAddress1ValidationMessages(address1Control)
     )
-    
+
   }
 
   private setAddress1ValidationMessages(c: AbstractControl): void {
@@ -131,16 +118,6 @@ export class AccountInfoContactComponent implements OnInit {
         this.address1ValidationMessages = 'Minimum length is ' + c.errors?.minlength?.requiredLength;
       }
     }
-  }
-
-  private setEmailValidationMessages(emailAddressControl: AbstractControl): void {
-
-    this.emailValidationMessages = "";
-    if ((emailAddressControl.touched || emailAddressControl.dirty) && emailAddressControl.errors) {
-      this.emailValidationMessages = Object.keys(emailAddressControl.errors).map(
-        key => this.emailValidationMessagesMap[key]).join('');
-    }
-
   }
 
   onSubmit() {

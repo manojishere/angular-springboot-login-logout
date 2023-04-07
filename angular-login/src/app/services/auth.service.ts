@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import {  BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import {  map, tap, catchError, retry } from 'rxjs/operators';
+import { Address } from '../model/address';
 import { User } from '../model/user';
 
 const httpOptions = {
@@ -23,7 +24,9 @@ export class AuthService {
     token: '',
     email: '',
     phoneNumber: 1111111111,
-    role: 'Admin'
+    phoneNumber2:'',
+    role: 'Admin',
+    address: new Address()
   }
   
   private _loggedInUser : BehaviorSubject<User>;

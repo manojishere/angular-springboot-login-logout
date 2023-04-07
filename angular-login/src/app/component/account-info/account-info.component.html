@@ -12,17 +12,21 @@
           </mat-card-header>
           <mat-card-content>
             <mat-tab-group>
-                <mat-tab label="Contact Info">
-                    <p>
-                      <app-account-info-contact></app-account-info-contact>
-                    </p>                    
-                </mat-tab>
-                <mat-tab label="Notes"> 
-                    some notes
-                    <!--<app-notes [notes]="user.notes"></app-notes> -->
-                    <app-account-info-tab [currentUser] ="user"></app-account-info-tab>
-                </mat-tab>
-              </mat-tab-group>              
+              <mat-tab label="Bio">
+                <app-user-bio></app-user-bio>
+              </mat-tab>
+              <mat-tab label="Address">
+                  <app-user-address></app-user-address>
+              </mat-tab>
+              <mat-tab label="Phone">
+                <app-user-phone></app-user-phone>
+              </mat-tab>
+              <mat-tab label="notes">
+                some notes
+                <!--<app-notes [notes]="user.notes"></app-notes> -->
+                <app-account-info-tab [currentUser]="user"></app-account-info-tab>
+              </mat-tab>
+            </mat-tab-group>              
 
           </mat-card-content>
     </mat-card>    

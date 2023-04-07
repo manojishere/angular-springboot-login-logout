@@ -21,6 +21,9 @@ import { AccountInfoTabComponent } from './component/account-info/account-info-t
 import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 import { AccountInfoContactComponent } from './component/account-info/account-info-contact.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { UserAddressComponent } from './component/account-info/user-address/user-address.component';
+import { UserBioComponent } from './component/account-info/user-bio/user-bio.component';
+import { UserPhoneComponent } from './component/account-info/user-phone/user-phone.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { MatRadioModule } from '@angular/material/radio';
     DashboardComponent,
     AccountInfoComponent,
     AccountInfoTabComponent,
-    AccountInfoContactComponent
+    AccountInfoContactComponent,
+    UserAddressComponent,
+    UserBioComponent,
+    UserPhoneComponent
   ],
   imports: [
     BrowserModule,

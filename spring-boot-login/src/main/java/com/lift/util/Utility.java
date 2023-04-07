@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lift.config.vo.Address;
 import com.lift.config.vo.User;
 
 import ch.qos.logback.classic.pattern.Util;
@@ -24,6 +25,16 @@ public class Utility {
 		user.setActive( true );
 		user.setAge( 42) ;
 		user.setEmail("msingh@gmail.com");
+		user.setPhoneNumber( 6787002336L );
+		
+		Address address = new Address();
+		address.setAddress1("4320 Marking Lane");
+		address.setCity("Plano");
+		address.setState("TX");
+		address.setPostalCode(22345);
+		
+		user.setAddress( address );
+		
 		createUser( user );
 	}
 	

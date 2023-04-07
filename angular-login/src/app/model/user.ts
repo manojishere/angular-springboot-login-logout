@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export class User {
     id: number | any;
     userName: string ="";
@@ -6,7 +8,9 @@ export class User {
     lastName: string ="";
     dateOfBirth: Date | any;
     phoneNumber: number | any;
+    phoneNumber2: number | any;
     email:string="";
     role:string="";
-    token: string ="";    
+    token: string = "";
+    address: Address | undefined;
 }

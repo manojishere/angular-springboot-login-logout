@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { Address } from '../model/address';
 import { User } from '../model/user';
 
 @Injectable({
@@ -20,7 +21,9 @@ export class UserDataService  implements InMemoryDbService{
               token: '',
               email: 'manojishere@gmail.com',
               phoneNumber: 1111111111,
-              role: 'Admin'
+              phoneNumber2: '',
+              role: 'Admin',
+              address: new Address()
             },
             {
               id: '2',
@@ -32,7 +35,9 @@ export class UserDataService  implements InMemoryDbService{
               token: '',
               email: 'tellneetu@gmail.com',
               phoneNumber: 2222222222,
-              role: 'Admin'
+              phoneNumber2: '',
+              role: 'Admin',
+              address: new Address()
             },
             {
               id: '3',
@@ -44,7 +49,9 @@ export class UserDataService  implements InMemoryDbService{
               token: '',
               email: 'tellsanskriti@gmail.com',
               phoneNumber: 3333333333,
-              role: 'Admin'
+              phoneNumber2: '',
+              role: 'Admin',
+              address: new Address()
             }                            
       ]
 

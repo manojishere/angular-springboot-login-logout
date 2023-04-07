@@ -4,16 +4,6 @@
   <mat-card class="box">
     <mat-card-content>
 
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="User Name" formControlName="userName" #userNameInput />
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="emailAddress">
-        <mat-error> {{emailValidationMessages}}</mat-error>
-      </mat-form-field>
-
       <fieldset>
         <legend>Address</legend>
         <div class="row">
@@ -74,12 +64,13 @@
       </fieldset>
 
 
-</mat-card-content>
+    </mat-card-content>
     <mat-card-actions>
       <button mat-stroked-button color="primary" [disabled]="!accountInfoContactForm.valid">Update Contact Info</button>
     </mat-card-actions>
 
-    
+
   </mat-card>
 </form>
+
 
