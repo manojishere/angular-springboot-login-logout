@@ -1,6 +1,6 @@
 
 
-<form [formGroup]="accountInfoContactForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="accountInfoAddressForm" (ngSubmit)="onSubmit()">
   <mat-card class="box">
     <mat-card-content>
 
@@ -34,7 +34,7 @@
           <div class="col">
             <mat-form-field class="full-width">
               <input matInput placeholder="City" formControlName="city">
-              <mat-error *ngIf="accountInfoContactForm.controls['city'].hasError('required')">
+              <mat-error *ngIf="accountInfoAddressForm.controls['city'].hasError('required')">
                 City is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -46,7 +46,7 @@
                   {{ state.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="accountInfoContactForm.controls['state'].hasError('required')">
+              <mat-error *ngIf="accountInfoAddressForm.controls['state'].hasError('required')">
                 State is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -66,7 +66,7 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <button mat-stroked-button color="primary" [disabled]="!accountInfoContactForm.valid">Update Contact Info</button>
+      <button mat-stroked-button color="primary" [disabled]="!accountInfoAddressForm.valid">Update Contact Info</button>
     </mat-card-actions>
 
 

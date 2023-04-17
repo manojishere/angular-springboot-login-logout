@@ -33,7 +33,7 @@ public class Utility {
 		address.setState("TX");
 		address.setPostalCode(22345);
 		
-		user.setAddress( address );
+		//user.setAddress( address );
 		
 		createUser( user );
 	}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Address } from '../../../model/address';
 import { User } from '../../../model/user';
 import { AuthService } from '../../../services/auth.service';
 
@@ -9,8 +10,9 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./user-address.component.scss']
 })
 export class UserAddressComponent implements OnInit {
-  accountInfoContactForm: FormGroup = new FormGroup({});
+  accountInfoAddressForm: FormGroup = new FormGroup({});
   user: User | undefined;
+  address: Address | any;
   hasUnitNumber: boolean = false;
 
   states = [
@@ -86,14 +88,20 @@ export class UserAddressComponent implements OnInit {
     this.authService.user.subscribe({
       next: data => {
         this.user = data;
-        console.log('AccountInfoContactComponent : user :: ' + JSON.stringify(this.user));
+        console.log('UserAddressComponent : user :: ' + JSON.stringify(this.user));
+        this.address = this.user?.address;
+        console.log('UserAddressComponent : number of address1 :: ' + JSON.stringify(this.address));
+        console.log('UserAddressComponent : number of address1 :: ' + this.address.address1);
+        console.log('UserAddressComponent : from addressArray :: ' + this.user.address?.address1);
       },
       error: err => {
-        console.log('AccountInfoContactComponent : Exception :: ' + err);
+        console.log('UserAddressComponent : Exception :: ' + err);
       }
     })
+    
+    
 
-    this.accountInfoContactForm = this.formBuilder.group({
+    this.accountInfoAddressForm = this.formBuilder.group({
       address1: [this.user?.address?.address1, [Validators.required, Validators.minLength(15)]],
       address2: [this.user?.address?.address2],
       state: [this.user?.address?.state, [Validators.required]],
@@ -102,7 +110,7 @@ export class UserAddressComponent implements OnInit {
 
     });
 
-    const address1Control = this.accountInfoContactForm.get('address1')
+    const address1Control = this.accountInfoAddressForm.get('address1')
     address1Control?.valueChanges.subscribe(
       value => this.setAddress1ValidationMessages(address1Control)
     )
@@ -121,7 +129,7 @@ export class UserAddressComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('AccountInfoContactComponent : onSubmit()');
+    console.log('UserAddressComponent : onSubmit()');
   }
 
 

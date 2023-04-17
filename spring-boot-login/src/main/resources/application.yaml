@@ -4,3 +4,19 @@ spring:
   message: DEFAULT application properties
   application:
     name: OpencardEntryService
+  datasources:
+    url: jdbc:h2:mem:testdb
+  data:
+    jpa:
+      repositories.bootstrap-mode: default
+      properties.hibernate.generate_statistics: true
+      properties.hibernate.format_sql: true
+      show-sql: true
+  jpa:
+    hibernate.ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+logging.level.org.hibernate.stat: debug
+logging.level.org.hibernate.type: trace          
+    
